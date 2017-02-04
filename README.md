@@ -1,1 +1,1 @@
-# js-obfuscation-detector
+# js-obfuscation-filter
