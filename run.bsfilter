@@ -1,0 +1,46 @@
+#!/bin/bash
+
+export BSFILTERHOME=$PWD/bsfilter.home/
+FAILED=false
+
+echo -n "### Testing Non-obfuscated JavaScript"
+for f in testing/goodjs/*
+do
+  echo
+  echo "Testing $f"
+  bsfilter "$f"
+  if [ $? -eq 1 ]
+  then
+    echo "Passed."
+  else
+    echo "FAILED!!!"
+    FAILED=true
+  fi
+done
+
+echo "### Finished testing Non-obfuscated JavaScript"
+echo
+echo
+
+echo -n "### Testing Obfuscated Javascript"
+for f in testing/badjs/*
+do
+  echo
+  echo "Testing $f"
+  bsfilter "$f"
+  if [ $? -eq 0 ]
+  then
+    echo "Passed."
+  else
+    echo "FAILED!!!"
+    FAILED=true
+  fi
+done
+
+echo "### Finished testing Obfuscated Javascript"
+
+if $FAILED;  then
+  echo
+  echo
+  echo "!!! Failures occurred."
+fi

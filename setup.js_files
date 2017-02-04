@@ -1,0 +1,20 @@
+#!/bin/bash
+
+function setup_badjs
+{
+  rm ./$1/badjs/*
+  
+  cd ./$1/goodjs
+  
+  for f in *
+  do
+    echo "$f"
+    uglifyjs "$f" -m toplevel,eval -c -o "../badjs/${f}.bad"
+  done
+  
+  cd ../..
+}
+
+
+setup_badjs training
+setup_badjs testing

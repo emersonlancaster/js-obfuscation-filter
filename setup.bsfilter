@@ -1,0 +1,25 @@
+#!/bin/bash
+
+export BSFILTERHOME=$PWD/bsfilter.home/
+
+echo -n "Resetting $BSFILTERHOME..."
+rm $BSFILTERHOME/*
+echo "Done."
+
+echo -n "Setting up training/goodjs..."
+for good in ./training/goodjs/*
+do
+  bsfilter -c $good
+done
+echo "Done."
+
+echo -n "Setting up training/badjs..."
+for bad in ./training/badjs/*
+do
+  bsfilter -s $bad
+done
+echo "Done."
+
+echo -n "Updating probability tables..."
+bsfilter -u
+echo "Done."
