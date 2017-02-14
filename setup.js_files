@@ -1,20 +1,36 @@
 #!/bin/bash
 
-function setup_badjs
+targets_dir=$PWD/targets
+testing_dir=$PWD/testing
+training_dir=$PWD/training
+
+
+uglify_js_file()
 {
-  rm ./$1/badjs/*
-  
-  cd ./$1/goodjs
-  
-  for f in *
-  do
-    echo "$f"
-    uglifyjs "$f" -m toplevel,eval -c -o "../badjs/${f}.bad"
-  done
-  
-  cd ../..
+  file=$1
+  dest_dir=$2
+
+  uglifyjs "$file" --beautify --output "$dest_dir/${file}.beaut"
+  uglifyjs "$file" --compress --output "$dest_dir/${file}.compr"
+  uglifyjs "$file" --mangle toplevel,eval --beautify --output "$dest_dir/${file}.bad.beaut"
+  uglifyjs "$file" --mangle toplevel,eval --compress --output "$dest_dir/${file}.bad.compr"
 }
 
 
-setup_badjs training
-setup_badjs testing
+setup_js_files()
+{
+  for filename in $targets_dir
+  do
+    file=${filename##*/}
+    odds=$(($RANDOM % 2))
+
+    if ((odds == 0));  then
+      uglify_js_file $file $testing_dir
+    else
+      setup_js_file $file $training_dir
+    fi
+  done
+}
+
+
+setup_js_files targets_dir

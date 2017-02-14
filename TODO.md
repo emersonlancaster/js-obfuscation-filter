@@ -18,6 +18,8 @@ Does this work with JavaScript project code from GitHub? How about one-liners em
 
 Figure out a better tool than wget, since it's missing a lot of script tags in HTML files.
 
+Would plumbing in similarity-tester be fruitful?
+
 
 
 ## Experiment

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+training_dir=$PWD/training
+
 export BSFILTERHOME=$PWD/bsfilter.home/
 
 echo -n "Resetting $BSFILTERHOME..."
@@ -7,14 +9,14 @@ rm $BSFILTERHOME/*
 echo "Done."
 
 echo -n "Setting up training/goodjs..."
-for good in ./training/goodjs/*
+for good in ./${training_dir}/goodjs/*
 do
   bsfilter -c $good
 done
 echo "Done."
 
 echo -n "Setting up training/badjs..."
-for bad in ./training/badjs/*
+for bad in ./${training_dir}/badjs/*
 do
   bsfilter -s $bad
 done

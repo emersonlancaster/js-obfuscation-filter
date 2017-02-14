@@ -1,0 +1,9 @@
+#!/bin/bash
+
+rm ./testing/badjs/*
+rm ./testing/goodjs/*
+
+rm ./training/badjs/*
+rm ./training/goodjs/*
+
+rm ./bsfilter.home/*

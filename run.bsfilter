@@ -1,10 +1,12 @@
 #!/bin/bash
 
+testing_dir=$PWD/testing
+failed=false
+
 export BSFILTERHOME=$PWD/bsfilter.home/
-FAILED=false
 
 echo -n "### Testing Non-obfuscated JavaScript"
-for f in testing/goodjs/*
+for f in ${testing_dir}/goodjs/*
 do
   echo
   echo "Testing $f"
@@ -14,7 +16,7 @@ do
     echo "Passed."
   else
     echo "FAILED!!!"
-    FAILED=true
+    failed=true
   fi
 done
 
@@ -23,7 +25,7 @@ echo
 echo
 
 echo -n "### Testing Obfuscated Javascript"
-for f in testing/badjs/*
+for f in ${testing_dir}/badjs/*
 do
   echo
   echo "Testing $f"
@@ -33,13 +35,13 @@ do
     echo "Passed."
   else
     echo "FAILED!!!"
-    FAILED=true
+    failed=true
   fi
 done
 
 echo "### Finished testing Obfuscated Javascript"
 
-if $FAILED;  then
+if $failed;  then
   echo
   echo
   echo "!!! Failures occurred."
